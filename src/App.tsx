@@ -1,7 +1,12 @@
 import './App.css';
+import List from './list';
 
 function App() {
-  return <h1>HEN</h1>;
+  return (
+    <>
+      <List />
+    </>
+  );
 }
 
 export default App;
