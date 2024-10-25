@@ -8,12 +8,11 @@ import {
   TableRow,
   Title,
 } from '@tremor/react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/index.ts';
+import { useAppSelector } from './hooks/store.ts';
 import { User } from './users.interface.ts';
 
 export default function List() {
-  const data: User[] = useSelector((state: RootState) => state.users);
+  const data: User[] = useAppSelector((state) => state.users);
 
   return (
     <>
