@@ -1,17 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { User } from '../../components/users/users.interface';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User, UserId } from '../../components/users/users.interface';
 import users from '../../components/users/users.json';
 
-interface UserWithId extends User {
-  id: number;
-}
-
-const initialState: UserWithId[] = users;
+const initialState: User[] = users;
 
 export const userSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    deleteUserById: (state, action: PayloadAction<UserId>) => {
+      const id = action.payload;
+      return state.filter((user) => user.id !== id);
+    },
+  },
 });
 
 export default userSlice.reducer;
+export const { deleteUserById } = userSlice.actions;
