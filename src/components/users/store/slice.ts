@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User, UserId } from '../../components/users/users.interface';
-import users from '../../components/users/users.json';
+import { User, UserId } from '../users.interface';
+import users from '../users.json';
 
 const initialState: User[] = users;
 
