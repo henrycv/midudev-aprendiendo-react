@@ -9,17 +9,28 @@ import {
   Title,
 } from '@tremor/react';
 import { useAppSelector, useUserActions } from './hooks/index.ts';
+import { USERS_KEY_PERSISTANCE } from './store/slice.ts';
 import { User } from './users.interface.ts';
 
 export default function List() {
   const data: User[] = useAppSelector((state) => state.users);
-  const { removeUser } = useUserActions();
+  const { removeUser, resetListUser } = useUserActions();
+  const handleResetList = () => {
+    localStorage.removeItem(USERS_KEY_PERSISTANCE);
+    resetListUser();
+  };
 
   return (
     <>
       <Title>
         User list
         <Badge>{data.length}</Badge>
+        <button
+          type="button"
+          className="whitespace-nowrap rounded-tremor-default bg-tremor-brand px-4 py-2.5 text-tremor-default font-medium text-tremor-brand-inverted shadow-tremor-input hover:bg-tremor-brand-emphasis dark:bg-dark-tremor-brand dark:text-dark-tremor-brand-inverted dark:shadow-dark-tremor-input dark:hover:bg-dark-tremor-brand-emphasis"
+          onClick={() => handleResetList()}>
+          Reset list
+        </button>
       </Title>
       <Table className="mt-8">
         <TableHead>
