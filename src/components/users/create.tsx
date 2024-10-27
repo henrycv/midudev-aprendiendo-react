@@ -40,7 +40,7 @@ export function Create() {
             </div>
             <div>
               <TextInput
-                // type="email"
+                type="email"
                 id="email"
                 name="email"
                 autoComplete="email"
