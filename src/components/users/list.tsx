@@ -1,5 +1,6 @@
 import {
   Badge,
+  Card,
   Table,
   TableBody,
   TableCell,
@@ -21,7 +22,7 @@ export default function List() {
   };
 
   return (
-    <>
+    <Card>
       <Title>
         User list
         <Badge>{data.length}</Badge>
@@ -107,6 +108,6 @@ export default function List() {
           ))}
         </TableBody>
       </Table>
-    </>
+    </Card>
   );
 }

@@ -16,6 +16,12 @@ export const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    createUser: (state, action) => {
+      // ToDo: replace this fake ID
+      const id = state.length + Math.floor(Math.random() * 10);
+
+      state.push({ id, ...action.payload });
+    },
     resetList: () => getInitialState(),
     deleteUserById: (state, action: PayloadAction<UserId>) => {
       const id = action.payload;
@@ -25,4 +31,4 @@ export const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { deleteUserById, resetList } = userSlice.actions;
+export const { createUser, deleteUserById, resetList } = userSlice.actions;
