@@ -11,10 +11,10 @@ import {
 } from '@tremor/react';
 import { useAppSelector, useUserActions } from './hooks/index.ts';
 import { USERS_KEY_PERSISTANCE } from './store/slice.ts';
-import { User } from './users.interface.ts';
+import { RegisteredUser } from './users.interface.ts';
 
 export default function List() {
-  const data: User[] = useAppSelector((state) => state.users);
+  const data: RegisteredUser[] = useAppSelector((state) => state.users);
   const { removeUser, resetListUser } = useUserActions();
   const handleResetList = () => {
     localStorage.removeItem(USERS_KEY_PERSISTANCE);

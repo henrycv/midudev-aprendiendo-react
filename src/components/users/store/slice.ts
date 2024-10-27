@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User, UserId } from '../users.interface';
+import { RegisteredUser, UserId } from '../users.interface';
 import usersDefaultList from '../users.json';
 
 export const USERS_KEY_PERSISTANCE = '__users_list';
 
-export const getInitialState = (): User[] => {
+export const getInitialState = (): RegisteredUser[] => {
   const persistedState = localStorage.getItem(USERS_KEY_PERSISTANCE);
 
   return persistedState ? JSON.parse(persistedState).users : usersDefaultList;
 };
 
-const initialState: User[] = (() => getInitialState())();
+const initialState: RegisteredUser[] = (() => getInitialState())();
 
 export const userSlice = createSlice({
   name: 'users',
@@ -23,9 +23,9 @@ export const userSlice = createSlice({
       state.push({ id, ...action.payload });
     },
     resetList: () => getInitialState(),
-    deleteUserById: (state, action: PayloadAction<UserId>) => {
+    deleteUserById: (state: RegisteredUser[], action: PayloadAction<UserId>) => {
       const id = action.payload;
-      return state.filter((user) => user.id !== id);
+      return state.filter((user: RegisteredUser) => user.id !== id);
     },
   },
 });
