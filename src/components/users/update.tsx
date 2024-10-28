@@ -2,18 +2,18 @@ import { Card } from '@tremor/react';
 import React, { useContext } from 'react';
 import { UserContext } from '.';
 import { Form } from './form';
-import { useUserActions } from './hooks';
-import { RegisteredUser, StatusUser } from './users.interface';
+import { RegisteredUser } from './users.interface';
+// import { useUserActions } from './hooks';
 
-export function Create() {
-  const { createNewUser } = useUserActions();
+export function Update() {
   const { user, setUser } = useContext(UserContext);
 
-  if (user.id) {
+  if (!user.id) {
     return null;
   }
+  // const { updateSomeUser } = useUserActions();
 
-  const handleCreate = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -23,8 +23,12 @@ export function Create() {
     const phone = formData.get('phone')?.toString().trim() as string;
     const website = formData.get('website')?.toString().trim() as string;
 
-    createNewUser({ name, email, phone, website, status: StatusUser.ACTIVE });
+    //
+    // ToDo: implement the persistance of che form value on User selected
+    //
+    // updateSomeUser({ name, email, phone, website });
     form.reset();
+    setUser({} as RegisteredUser);
   };
 
   const handleReset = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -36,13 +40,12 @@ export function Create() {
     <Card>
       <div className="sm:mx-auto sm:max-w-2xl text-left">
         <h3 className="text-tremor-title font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
-          Create User
+          Update User
         </h3>
-        {/* ToDo: replace the user prop for a properly optional prop */}
         <Form
-          user={{} as RegisteredUser}
+          user={user}
           setUser={setUser}
-          submitHandler={handleCreate}
+          submitHandler={handleUpdate}
           resetHandler={handleReset}
         />
       </div>

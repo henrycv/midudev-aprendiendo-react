@@ -9,13 +9,17 @@ import {
   TableRow,
   Title,
 } from '@tremor/react';
+import { useContext } from 'react';
 import { useAppSelector, useUserActions } from './hooks/index.ts';
+import { UserContext } from './index.tsx';
 import { USERS_KEY_PERSISTANCE } from './store/slice.ts';
 import { RegisteredUser } from './users.interface.ts';
 
 export default function List() {
   const data: RegisteredUser[] = useAppSelector((state) => state.users);
   const { removeUser, resetListUser } = useUserActions();
+  const { setUser } = useContext(UserContext);
+
   const handleResetList = () => {
     localStorage.removeItem(USERS_KEY_PERSISTANCE);
     resetListUser();
@@ -73,7 +77,7 @@ export default function List() {
               <TableCell>{item.website}</TableCell>
               <TableCell>{item.status}</TableCell>
               <TableCell>
-                <button type="button">
+                <button type="button" onClick={() => setUser(item)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

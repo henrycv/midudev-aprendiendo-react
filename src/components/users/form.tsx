@@ -1,12 +1,16 @@
 import { Button, Card, Divider, TextInput } from '@tremor/react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { RegisteredUser } from './users.interface';
 
 type Props = {
+  user: RegisteredUser;
+  setUser: (user: RegisteredUser) => void;
   submitHandler: React.FormEventHandler<HTMLFormElement>;
+  resetHandler: React.FormEventHandler<EventTarget & HTMLButtonElement>;
 };
 
-export function Form({ submitHandler }: Props) {
+export function Form({ user, setUser, submitHandler, resetHandler }: Props) {
   return (
     <Card>
       <form action="#" method="post" className="mt-8" onSubmit={submitHandler}>
@@ -19,6 +23,12 @@ export function Form({ submitHandler }: Props) {
               autoComplete="name"
               placeholder="First name"
               className="mt-2"
+              value={user?.name || undefined}
+              onChange={(event) => {
+                if (user?.id) {
+                  setUser({ ...user, name: event.target.value });
+                }
+              }}
               required
             />
           </div>
@@ -30,6 +40,12 @@ export function Form({ submitHandler }: Props) {
               autoComplete="email"
               placeholder="Email"
               className="mt-2"
+              value={user?.email || undefined}
+              onChange={(event) => {
+                if (user?.id) {
+                  setUser({ ...user, email: event.target.value });
+                }
+              }}
               required
             />
           </div>
@@ -41,6 +57,12 @@ export function Form({ submitHandler }: Props) {
               autoComplete="phone"
               placeholder="phone"
               className="mt-2"
+              value={user?.phone || undefined}
+              onChange={(event) => {
+                if (user?.id) {
+                  setUser({ ...user, phone: event.target.value });
+                }
+              }}
             />
           </div>
           <div className="col-span-full sm:col-span-3">
@@ -51,6 +73,12 @@ export function Form({ submitHandler }: Props) {
               autoComplete="website"
               placeholder="Website"
               className="mt-2"
+              value={user?.website || undefined}
+              onChange={(event) => {
+                if (user?.id) {
+                  setUser({ ...user, website: event.target.value });
+                }
+              }}
               required
             />
           </div>
@@ -58,8 +86,8 @@ export function Form({ submitHandler }: Props) {
         <Divider />
         <div className="flex items-center justify-end space-x-4">
           <Button
-            type="reset"
-            className="whitespace-nowrap rounded-tremor-small px-4 py-2.5 text-tremor-default font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">
+            className="whitespace-nowrap rounded-tremor-small px-4 py-2.5 text-tremor-default font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong"
+            onClick={(evt) => resetHandler(evt)}>
             Cancel
           </Button>
           <Button
@@ -75,4 +103,5 @@ export function Form({ submitHandler }: Props) {
 
 Form.propTypes = {
   submitHandler: PropTypes.func.isRequired,
+  resetHandler: PropTypes.func.isRequired,
 };
